@@ -482,6 +482,22 @@ function drawStdDevChart(x, y, w, h) {
   }
   endShape();
 
+  //numerini piccoli sotto alcune barre (ogni 4 circa, per evitare sovrapposizioni)
+  noStroke ();
+  textAlign(CENTER);
+  textSize(9);
+  textStyle(NORMAL);
+  fill(90);
+
+  let labelStep = Math.ceil(points.length / 12); //mostra 12 etichette distribuite
+  for (let i = 0; i < points.length; i += labelStep) {
+    let p = points[i];
+    let px = map(p.x, dataMin, dataMax, x + 20, x + w - 20);
+    let label = nf(p.x, 1, 1); // 1 decimale
+    text(label, px, y + h + 10);
+  }
+
+
   //scritta con il valore della deviazione standard sotto il grafico
   noStroke();
   fill(0);
